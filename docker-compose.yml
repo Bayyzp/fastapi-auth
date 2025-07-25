@@ -9,9 +9,11 @@ services:
     env_file:
       - .env
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - backend
+    command: ["./start.sh"]
 
   db:
     image: mysql:8.0
@@ -28,9 +30,15 @@ services:
       - mysqldata:/var/lib/mysql
     networks:
       - backend
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpass"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
 volumes:
   mysqldata:
 
 networks:
   backend:
+

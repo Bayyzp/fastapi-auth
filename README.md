@@ -1,51 +1,160 @@
-# Auth API with FastAPI & MySQL (Dockerized)
+# 🔐 FastAPI Auth REST API (Dockerized)
 
-## 🚀 How to Run
+API ini menyediakan sistem login, register, dan manajemen user berbasis Python (FastAPI) dan MySQL. Sudah termasuk validasi JWT, proteksi endpoint, dan role-based access control. Proyek ini siap produksi dan sudah Dockerized sepenuhnya.
 
-1. Build and start the containers:
+---
 
-```bash
-docker-compose up --build
-```
+## 📦 Fitur
 
-2. Visit the FastAPI docs:
+- ✅ Register user baru (`POST /register`)
+- 🔐 Login dan generate JWT token (`POST /login`)
+- 👤 Lihat profil user login (`GET /me`)
+- ✏️ Edit profil sendiri (`PATCH /me`)
+- 🗑️ Hapus akun sendiri (`DELETE /me`)
+- 🧑‍💼 Admin:
+  - Lihat semua user (`GET /admin/users`)
+  - Hapus user (`DELETE /admin/users/{id}`)
+- 🔒 Password di-hash pakai bcrypt
+- 🎟️ JWT-based auth
+- 🔐 Role-based access: `user` & `admin`
 
-[http://localhost:8000/docs](http://localhost:8000/docs)
+---
 
-## 📦 Services
+## ⚙️ Teknologi
 
-- `fastapi` — runs the FastAPI backend
-- `db` — MySQL 8.0 with default credentials
+- Python 3.10+
+- FastAPI
+- SQLAlchemy ORM
+- MySQL / MariaDB (via Docker)
+- JWT (python-jose)
+- bcrypt (passlib)
+- Python Dotenv
+- Docker + Docker Compose
 
-## 🔐 MySQL Credentials
+---
 
-```
-HOST: db
-PORT: 3306
-USER: authuser
-PASSWORD: authpass
-DATABASE: authdb
-```
+## 🐳 Menjalankan dengan Docker
 
-Ensure your app reads DB config from `.env` like:
+### 1. Salin `.env` (otomatis sudah disiapkan)
+
+Contoh isi:
 
 ```env
 DB_HOST=db
 DB_PORT=3306
-DB_USER=authuser
-DB_PASSWORD=authpass
-DB_NAME=authdb
+DB_USER=auth_user
+DB_PASS=auth_password
+DB_NAME=auth_db
+SECRET_KEY=your_super_secret
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-## 📁 File Structure
+> `DB_HOST=db` karena service MySQL ada di dalam Docker Compose
+
+---
+
+### 2. Jalankan aplikasi
+
+```bash
+docker compose up --build -d
+```
+
+- FastAPI → `http://localhost:8000`
+- Swagger UI → `http://localhost:8000/docs`
+- Redoc → `http://localhost:8000/redoc`
+
+---
+
+## 🔐 Cara Login & Gunakan Bearer Token
+
+1. Login via POST ke `/login`
+
+```json
+{
+  "username": "admin",
+  "password": "admin123"
+}
+```
+
+2. Dapatkan response:
+
+```json
+{
+  "access_token": "xxxxx.yyyyy.zzzzz",
+  "token_type": "bearer"
+}
+```
+
+3. Gunakan token di header untuk akses protected route:
 
 ```
-auth_api_final/
+Authorization: Bearer xxxxx.yyyyy.zzzzz
+```
+
+---
+
+## 🧑‍💼 Role-based Access
+
+- Default role saat register: `user`
+- Role `admin` bisa mengakses endpoint `/admin/users`
+- Kolom `role` disimpan di tabel `users`
+
+---
+
+## 🗃️ Struktur Folder
+
+```
+fastapi_auth/
 ├── app/
+│   ├── main.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── auth.py
+│   └── ...
 ├── .env
-├── requirements.txt
-├── start.sh
 ├── Dockerfile
 ├── docker-compose.yml
+├── requirements.txt
 └── README.md
 ```
+
+---
+
+## 🛡️ Tips Keamanan Produksi
+
+- 🔐 Ganti `docs_url=None` pada `FastAPI()` untuk menyembunyikan Swagger
+- 🚫 Jangan expose `.env` ke publik
+- 🔐 Gunakan HTTPS + Nginx reverse proxy
+- 🔁 Atur token expiry & refresh flow jika dibutuhkan
+
+---
+
+## 🛠️ Untuk Development Lokal (tanpa Docker)
+
+1. Install Python dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Buat file `.env` seperti di atas
+
+3. Jalankan dengan Uvicorn:
+
+```bash
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+---
+
+## 📜 Lisensi
+
+MIT — Bebas digunakan dan dimodifikasi.
+
+---
+
+## 👤 Dibuat Oleh
+
+> Sistem API login modern berbasis Python FastAPI.  
+> Dirancang untuk performa, keamanan, dan kemudahan integrasi.
