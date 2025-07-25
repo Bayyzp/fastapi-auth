@@ -104,16 +104,7 @@ Authorization: Bearer xxxxx.yyyyy.zzzzz
 
 # 🛡️ Tambah Admin Manual di FastAPI Auth
 
-Proyek ini menggunakan MySQL sebagai database dan memiliki sistem login dengan JWT. Untuk menambahkan user dengan role `admin`, kamu perlu menjalankan script `add_admin.py`.
-
----
-
-## 📌 Syarat
-
 - Docker container `fastapi_app` harus sudah berjalan.
----
-
-## 🚀 Cara Menambahkan Admin
 
 1. **Masuk ke direktori proyek:**
 
