@@ -8,15 +8,15 @@ API ini menyediakan sistem login, register, dan manajemen user berbasis Python (
 
 - ✅ Register user baru (`POST /register`)
 - 🔐 Login dan generate JWT token (`POST /login`)
-- 👤 Lihat profil user login (`GET /me`)
-- ✏️ Edit profil sendiri (`PATCH /me`)
-- 🗑️ Hapus akun sendiri (`DELETE /me`)
+-  Lihat profil user login (`GET /me`)
+-  Edit profil sendiri (`PATCH /me`)
+-  Hapus akun sendiri (`DELETE /me`)
 - 🧑‍💼 Admin:
   - Lihat semua user (`GET /admin/users`)
   - Hapus user (`DELETE /admin/users/{id}`)
-- 🔒 Password di-hash pakai bcrypt
-- 🎟️ JWT-based auth
-- 🔐 Role-based access: `user` & `admin`
+-  Password di-hash pakai bcrypt
+-  JWT-based auth
+-  Role-based access: `user` & `admin`
 
 ---
 
