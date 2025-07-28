@@ -1,6 +1,6 @@
-# 🔐 FastAPI Auth REST API (Dockerized)
+# Auth REST API (Dockerized)
 
-API ini menyediakan sistem login, register, dan manajemen user berbasis Python (FastAPI) dan MySQL. Sudah termasuk validasi JWT, proteksi endpoint, dan role-based access control. Proyek ini siap produksi dan sudah Dockerized sepenuhnya.
+API menyediakan sistem login, register, dan manajemen user berbasis Python (FastAPI) dan MySQL. Sudah termasuk validasi JWT, proteksi endpoint, dan role-based access control.
 
 ---
 
@@ -186,8 +186,6 @@ uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
 MIT — Bebas digunakan dan dimodifikasi.
 
 ---
-
-## 👤 Dibuat Oleh
 
 > Sistem API login modern berbasis Python FastAPI.  
 > Dirancang untuk performa, keamanan, dan kemudahan integrasi.
